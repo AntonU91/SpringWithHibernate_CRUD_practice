@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -24,8 +25,7 @@ public class PersonDAO {
     @Transactional(readOnly = true)
     public List<Person> index() {
        Session session=  sessionFactory.getCurrentSession();
-      List<Person> people =session.createQuery(" select p from Person p", Person.class).getResultList();
-      return people;
+        return session.createQuery(" select p from Person p", Person.class).getResultList();
     }
 
     @Transactional (readOnly = true)
@@ -36,6 +36,7 @@ public class PersonDAO {
 
     @Transactional
     public void save(Person person) {
+        person.setCreatedAt(new Date());
         Session session=  sessionFactory.getCurrentSession();
         session.save(person);
     }

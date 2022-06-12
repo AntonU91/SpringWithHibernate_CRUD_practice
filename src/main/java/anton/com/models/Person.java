@@ -1,9 +1,12 @@
 package anton.com.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @Table (name = "person2")
@@ -24,6 +27,16 @@ public class Person {
     @Column (name ="email")
     private String email;
 
+    @Column( name ="date_of_birth")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy") //дд//мм//гггг
+    private Date dateOfBirth;
+
+    @Column (name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+
+    private Date  createdAt;
+
 
     public Person() {
 
@@ -33,6 +46,22 @@ public class Person {
         this.name = name;
         this.age = age;
 
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getEmail() {
